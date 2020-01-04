@@ -13,7 +13,8 @@ const UserSchema = mongoose.model(
       hourlyRate: Number,
       location: String,
       notification: Array,
-      accountType: String
+      accountType: String,
+      bookings: Array
     },
     { timestamps: true }
   )
