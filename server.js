@@ -56,4 +56,4 @@ const server = https.createServer(
   app
 )
 
-server.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`))
+app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`))

@@ -42,8 +42,8 @@ initializeConversationRoutes = ({ router }) => {
     } else {
       const NewConversation = new Conversation()
       NewConversation.between = [sender, receiver]
-      NewConversation.messages = newMessage ? [newMessage] : [],
-      NewConversation.lastMessage = newMessage
+      ;(NewConversation.messages = newMessage ? [newMessage] : []),
+        (NewConversation.lastMessage = newMessage)
       NewConversation.save((err, conversation) => {
         if (err) {
           return res.json({ success: false, error: err })
@@ -75,6 +75,20 @@ initializeConversationRoutes = ({ router }) => {
       } else {
         return res.send(500, { error: 'conversation does not exist' })
       }
+    })
+  })
+  router.get('/conversation/notifications/:user', (req, res) => {
+    const { user } = req.params
+    Conversation.find({ between: { $all: [user] } }, (err, conversations) => {
+      const unreadMessages = conversations.filter(conversation => {
+        const { lastMessage } = conversation
+        return (
+          lastMessage &&
+          lastMessage.sender !== user &&
+          !lastMessage.read
+        )
+      })
+      return res.json({ notifications: unreadMessages })
     })
   })
 }
