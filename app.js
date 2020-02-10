@@ -44,16 +44,4 @@ initializeRoutes({ router })
 // append /api for our http requests
 app.use('/api', router)
 
-const key = fs.readFileSync('./key.pem')
-const cert = fs.readFileSync('./cert.pem')
-
-// launch our backend into a port
-const server = https.createServer(
-  {
-    key,
-    cert
-  },
-  app
-)
-
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`))
