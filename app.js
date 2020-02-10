@@ -10,7 +10,7 @@ require('dotenv').config()
 
 const isProduction = process.env.NODE_ENV !== 'dev'
 
-const API_PORT = 3005
+const API_PORT = 8081
 const dbUsername = process.env.DB_USERNAME
 const dbPassword = process.env.DB_PASSWORD
 const databaseName = isProduction
