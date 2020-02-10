@@ -1,4 +1,4 @@
-const { UserSchema } = require('../schemas/userSchema')
+const { UserSchema } = require('../schemas/UserSchema')
 const Users = UserSchema
 
 initializeUserRoutes = ({ router }) => {
