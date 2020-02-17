@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV='dev' nodemon server.js",
-    "production": "NODE_ENV='production' nodemon server.js",
-    "start": "node app.js"
+    "dev": "nodemon -r esm app.js",
+    "start": "NODE_ENV='production' node -r esm app.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,12 +14,14 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "https": "^1.0.0",
-    "mongodb": "2.2.16",
-    "mongoose": "^5.8.2",
     "morgan": "^1.9.1",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "pg": "^7.18.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.4"
   }
 }
