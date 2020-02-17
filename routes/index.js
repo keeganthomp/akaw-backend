@@ -1,11 +1,14 @@
-const { initializeUserRoutes } = require('./userRoutes')
-const { initializeConversationRoutes } = require('./conversationRoutes')
+const { Router } = require('express')
+const router = Router()
+
+import { initializeUserRoutes } from './users'
+import { initializeChatRoutes } from './chats'
 
 const initializeRoutes = ({ router }) => {
-  initializeConversationRoutes({ router })
   initializeUserRoutes({ router })
+  initializeChatRoutes({ router })
 }
 
-module.exports = {
-  initializeRoutes
-}
+initializeRoutes({ router })
+
+module.exports = router

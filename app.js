@@ -1,47 +1,19 @@
-const mongoose = require('mongoose')
-const express = require('express')
-var cors = require('cors')
-const bodyParser = require('body-parser')
-const logger = require('morgan')
-var fs = require('fs')
-var https = require('https')
-
+const db = require('./models')
 require('dotenv').config()
 
-const isProduction = process.env.NODE_ENV !== 'dev'
+const server = require('./server')
 
-const API_PORT = 8081
-const dbUsername = process.env.DB_USERNAME
-const dbPassword = process.env.DB_PASSWORD
-const databaseName = isProduction
-  ? process.env.PROD_DB_NAME
-  : process.env.DEV_DB_NAME
+const PORT = process.env.PORT || 3300
 
-const DB_ROUTE = `mongodb+srv://${dbUsername}:${dbPassword}!@surfing-it-zykrc.mongodb.net/${databaseName}?retryWrites=true&w=majority`
+initializeServer = async () => {
+  try {
+    await db.sequelize.sync()
+    server.listen(PORT, () => {
+      console.log(`Server is live at localhost:${PORT}`)
+    })
+  } catch (err) {
+    console.log('Error conencting to database:', err)
+  }
+}
 
-const app = express()
-app.use(cors())
-
-const { initializeRoutes } = require('./routes')
-const router = express.Router()
-
-// connects our back end code with the database
-mongoose.connect(DB_ROUTE, { useNewUrlParser: true })
-
-const db = mongoose.connection
-
-// checks if connection with the database is successful
-db.once('open', () => console.log('connected to the database'))
-db.on('error', console.error.bind(console, 'MongoDB connection error:'))
-
-// bodyParser, parses the request body to be a readable json format
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-app.use(logger('dev'))
-
-initializeRoutes({ router })
-
-// append /api for our http requests
-app.use('/api', router)
-
-app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`))
+initializeServer()
