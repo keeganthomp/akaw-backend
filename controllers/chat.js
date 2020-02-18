@@ -18,7 +18,7 @@ const createChat = async (req, res) => {
   }
 }
 
-const getChats = async (req, res) => {
+const getUserChats = async (req, res) => {
   const { userId } = req.params
   const normalizedUserId = Number(userId)
   try {
@@ -51,29 +51,36 @@ const getChats = async (req, res) => {
             model: User,
             as: 'userOne',
             required: false,
-            include: [{
-              model: Profile,
-              as: 'profile'
-            }]
+            include: [
+              {
+                model: Profile,
+                as: 'profile'
+              }
+            ]
           },
           {
             model: User,
             as: 'userTwo',
             required: false,
-            include: [{
-              model: Profile,
-              as: 'profile'
-            }]
+            include: [
+              {
+                model: Profile,
+                as: 'profile'
+              }
+            ]
           }
         ]
       })
     })
     const chatsWithUserInfo = await Promise.all(chatPromises)
+    // due to how we are handling the promises, the result comes back as nested arrays
+    // here, we are simply getting the first item (only item) in each of the arrays to return 
+    // an array of objects insted of an array of arrays to client
+    const formattedChats = chatsWithUserInfo.map(chat => chat[0])
     res.status(200).json({
-      chats: chatsWithUserInfo
+      chats: formattedChats
     })
   } catch (error) {
-    console.log('ERRRO', error)
     res.status(500).json({
       error
     })
@@ -82,5 +89,5 @@ const getChats = async (req, res) => {
 
 module.exports = {
   createChat,
-  getChats
+  getUserChats
 }

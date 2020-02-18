@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     })
     // a chat can consist of many messages
     Chat.hasMany(models.ChatMessage, {
-      foreignKey: 'id',
+      foreignKey: 'chat_id',
       as: 'messages',
       onDelete: 'CASCADE'
     })

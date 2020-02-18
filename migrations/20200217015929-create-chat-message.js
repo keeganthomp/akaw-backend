@@ -10,20 +10,27 @@ module.exports = {
       },
       chatId: {
         type: Sequelize.INTEGER,
-        field: 'chat_id'
+        field: 'chat_id',
+        allowNull: false
       },
-      sender: {
-        type: Sequelize.STRING
+      senderId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        field: 'sender_id'
       },
-      receiver: {
-        type: Sequelize.STRING
+      receiverId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        field: 'receiver_id'
       },
       isRead: {
         type: Sequelize.BOOLEAN,
-        field: 'is_read'
+        field: 'is_read',
+        defaultValue: false
       },
       message: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

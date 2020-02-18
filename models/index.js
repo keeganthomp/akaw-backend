@@ -2,11 +2,9 @@ const fs = require('fs')
 const path = require('path')
 const Sequelize = require('sequelize')
 const envConfigs = require('../config/config')
-console.log('ENV CONGID', envConfigs)
 
 const basename = path.basename(__filename)
 const env = process.env.NODE_ENV || 'development'
-console.log('ENV', env)
 const config = envConfigs[env]
 const db = {}
 

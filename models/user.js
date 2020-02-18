@@ -35,14 +35,8 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = models => {
     // user has one profile
     User.hasOne(models.Profile, {
-      foreignKey: 'id',
+      foreignKey: 'user_id',
       as: 'profile',
-      onDelete: 'CASCADE'
-    })
-    // user can have many chats
-    User.hasMany(models.Chat, {
-      foreignKey: 'id',
-      as: 'user',
       onDelete: 'CASCADE'
     })
   }

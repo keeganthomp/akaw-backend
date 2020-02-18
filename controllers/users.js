@@ -1,5 +1,5 @@
 const models = require('../models')
-const { User } = models
+const { User, Profile } = models
 
 const createUser = async (req, res) => {
   const newUserPayload = req.body
@@ -17,13 +17,19 @@ const createUser = async (req, res) => {
   }
 }
 
-const getUsers = async (req, res) => {
+const listUsers = async (req, res) => {
   const { accountType } = req.params
   try {
     const users = await User.findAll({
       where: {
         accountType
-      }
+      },
+      include: [
+        {
+          model: Profile,
+          as: 'profile'
+        }
+      ]
     })
     res.status(200).json({
       users
@@ -35,7 +41,32 @@ const getUsers = async (req, res) => {
   }
 }
 
+const getUser = async (req, res) => {
+  const { userId } = req.params
+  try {
+    const user = await User.findOne({
+      where: {
+        id: userId
+      },
+      include: [
+        {
+          model: Profile,
+          as: 'profile'
+        }
+      ]
+    })
+    res.status(200).json({
+      user
+    })
+  } catch (error) {
+    res.status(500).json({
+      error
+    })
+  }
+}
+
 module.exports = {
   createUser,
-  getUsers
+  listUsers,
+  getUser
 }

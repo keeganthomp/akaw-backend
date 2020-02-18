@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         unique: true,
-        field: 'user_id'
+        field: 'user_id',
+        allowNull: false
       },
       firstName: {
         type: DataTypes.STRING,
@@ -61,7 +62,12 @@ module.exports = (sequelize, DataTypes) => {
     {}
   )
   Profile.associate = models => {
-    // associations can be defined here
+    // every profile belongs to a user
+    Profile.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user',
+      onDelete: 'CASCADE'
+    })
   }
   return Profile
 }
