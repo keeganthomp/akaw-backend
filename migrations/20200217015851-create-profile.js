@@ -8,6 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      username: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+      },
       firstName: {
         type: Sequelize.STRING,
         field: 'first_name'
@@ -19,7 +24,11 @@ module.exports = {
       userId: {
         type: Sequelize.INTEGER,
         unique: true,
-        field: 'user_id'
+        field: 'user_id',
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       profilePicture: {
         type: Sequelize.STRING,
@@ -44,7 +53,7 @@ module.exports = {
       about: {
         type: Sequelize.TEXT
       },
-      prefferedBeaches: {
+      preferredBeaches: {
         type: Sequelize.ARRAY(Sequelize.STRING),
         field: 'preferred_beaches'
       },

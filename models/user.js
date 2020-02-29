@@ -11,8 +11,16 @@ module.exports = (sequelize, DataTypes) => {
       username: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false
-      },
+								allowNull: false,
+								isLowercase: true
+						},
+						// has user verified account in AWS cognito
+						userVerified: {
+							type: DataTypes.BOOLEAN,
+							allowNull: false,
+							defaultValue: false,
+							field: 'user_verified'
+						},
       email: {
         type: DataTypes.STRING,
         unique: true,
@@ -38,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'user_id',
       as: 'profile',
       onDelete: 'CASCADE'
-    })
+				})
   }
-  return User
+  return User 
 }

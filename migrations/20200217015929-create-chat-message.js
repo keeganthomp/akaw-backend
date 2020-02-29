@@ -2,35 +2,21 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('ChatMessages', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+      text: Sequelize.STRING,
+      user: Sequelize.JSON,
+      _id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        primaryKey: true
       },
       chatId: {
         type: Sequelize.INTEGER,
-        field: 'chat_id',
-        allowNull: false
-      },
-      senderId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        field: 'sender_id'
-      },
-      receiverId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        field: 'receiver_id'
-      },
-      isRead: {
-        type: Sequelize.BOOLEAN,
-        field: 'is_read',
-        defaultValue: false
-      },
-      message: {
-        type: Sequelize.TEXT,
-        allowNull: false
+								allowNull: false,
+								field: 'chat_id',
+        references: {
+          model: 'Chats',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

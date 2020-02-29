@@ -1,9 +1,10 @@
 const express = require('express');
 const routes = require('../routes');
+const app = express()
 
-const server = express();
-server.use(express.json());
+const server = require('http').createServer(app);
+app.use(express.json());
 
-server.use('/api', routes);
+app.use('/api', routes);
 
 module.exports = server;

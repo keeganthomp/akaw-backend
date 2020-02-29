@@ -7,14 +7,22 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
-      },
+						},
+						userVerified: {
+							type: Sequelize.BOOLEAN,
+							allowNull: false,
+							defaultValue: false,
+							field: 'user_verified'
+						},
       accountType: {
         type: Sequelize.ENUM('surfer', 'surfee'),
         field: 'account_type'
       },
       username: {
         type: Sequelize.STRING,
-        unique: true
+								unique: true,
+								isLowercase: true,
+								allowNull: false
       },
       email: {
         type: Sequelize.STRING,

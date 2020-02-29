@@ -6,28 +6,28 @@ module.exports = {
       'Profiles',
       [
         {
-          user_id: 1,
-          first_name: 'jimmy',
-          last_name: 'jimmy last name',
-          profile_picture: '<link-to-s3-image>',
+										user_id: 1,
+										username: 'jimmy',
+          first_name: 'Jimmy',
+          last_name: 'Johnson',
           equipment_offered: ['wetsuit', 'surfboard'],
           created_at: new Date(),
           updated_at: new Date()
         },
         {
-          user_id: 2,
+										user_id: 2,
+										username: 'tommy',
           first_name: 'Tommy',
-          last_name: 'Tommy last name',
-          profile_picture: '<link-to-s3-image>',
+          last_name: 'Thomas',
           equipment_offered: ['wetsuit', 'surfboard'],
           created_at: new Date(),
           updated_at: new Date()
         },
         {
-          user_id: 3,
+										user_id: 3,
+										username: 'sarah',
           first_name: 'Sarah',
-          last_name: 'Sarah last name',
-          profile_picture: '<link-to-s3-image>',
+          last_name: 'Smith',
           equipment_offered: ['wetsuit', 'surfboard'],
           created_at: new Date(),
           updated_at: new Date()

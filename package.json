@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amazon-cognito-identity-js": "^3.2.4",
+    "aws-amplify": "^2.2.5",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -19,9 +21,11 @@
     "fs": "^0.0.1-security",
     "https": "^1.0.0",
     "morgan": "^1.9.1",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
     "pg": "^7.18.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.21.4"
+    "sequelize": "^5.21.4",
+    "socket.io": "^2.3.0"
   }
 }

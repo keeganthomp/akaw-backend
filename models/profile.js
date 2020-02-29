@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
         field: 'user_id',
         allowNull: false
       },
+      username: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false
+      },
       firstName: {
         type: DataTypes.STRING,
         field: 'first_name'
@@ -40,8 +45,8 @@ module.exports = (sequelize, DataTypes) => {
       about: {
         type: DataTypes.TEXT
       },
-      prefferedBeaches: {
-        type: DataTypes.JSONB,
+      preferredBeaches: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
         field: 'preferred_beaches'
       },
       cprCertified: {

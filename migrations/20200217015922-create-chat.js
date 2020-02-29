@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Chats', {
@@ -9,26 +9,34 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userOneId: {
+        field: 'user_one_id',
         type: Sequelize.INTEGER,
-        field: 'user_one_id'
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       userTwoId: {
+        field: 'user_two_id',
         type: Sequelize.INTEGER,
-        field: 'user_two_id'
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       createdAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        field: 'created_at',
-        defaultValue: Sequelize.NOW
+        field: 'created_at'
       },
       updatedAt: {
+        allowNull: false,
         type: Sequelize.DATE,
-        field: 'updated_at',
-        defaultValue: Sequelize.NOW
+        field: 'updated_at'
       }
-    });
+    })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Chats');
+    return queryInterface.dropTable('Chats')
   }
-};
+}

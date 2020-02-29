@@ -1,81 +1,30 @@
 const models = require('../models')
-const { ChatMessage, Chat, User } = models
+const { findOrCreateChat } = require('./chat.js')
+const { ChatMessage } = models
 
 const createChatMessage = async (req, res) => {
-  const newMessage = req.body
-  const { chatId, senderId, receiverId } = newMessage
+		const { sender, receiver, text } = req.body
   try {
-    // if existing chat exist for these messages
-    // use the existing chatId as the new message chatId
-    // Otherwise, create a new chat and use the newly created chatId,
-    // to find the chat to associate the new message to
-    if (chatId) {
-      const existingChatMessages = await ChatMessage.findAll({
-        where: {
-          chatId
-        }
-      })
-      const sentMessage = await ChatMessage.create(
-        {
-          ...newMessage
-        },
-        {
-          include: [
-            {
-              model: Chat,
-              as: 'chat'
-            },
-            {
-              model: User,
-              as: 'sender'
-            },
-            {
-              model: User,
-              as: 'receiver'
-            }
-          ]
-        }
-      )
-      res.status(200).json({
-        sentMessage,
-        allMessages: [...existingChatMessages, sentMessage]
-      })
-    } else {
-      const { dataValues: newChat } = await Chat.create({
-        userOneId: senderId,
-        userTwoId: receiverId
-      })
-      const { id: newChatId } = newChat
-      newMessage.chatId = newChatId
-      const sentMessage = await ChatMessage.create(
-        {
-          ...newMessage
-        },
-        {
-          include: [
-            {
-              model: Chat,
-              as: 'chat'
-            },
-            {
-              model: User,
-              as: 'sender'
-            },
-            {
-              model: User,
-              as: 'receiver'
-            }
-          ]
-        }
-      )
-      res.status(200).json({
-        sentMessage
-      })
-    }
-  } catch (err) {
-    res.status(500).json({
-      err
+    const newMessage = await ChatMessage.create({
+      text,
+      user: {
+        _id: sender.id,
+								name: sender.name,
+								avatar: sender.profile.profilePicture
+      }
+				})
+				const associatedChat = await findOrCreateChat({
+					userOneId: sender.id,
+					userTwoId: receiver.id
+			})
+				await newMessage.setChat(associatedChat)
+    res.send({
+      newMessage,
+      chat: associatedChat
     })
+  } catch (error) {
+			console.log('ERRR', error)
+    console.log('Error creating chat message:', error)
   }
 }
 

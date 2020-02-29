@@ -2,7 +2,7 @@ const models = require('../models')
 const { Profile, User } = models
 
 const createOrUpdateProfile = async (req, res) => {
-  const { userId, profile } = req.body
+		const { userId, profile } = req.body
   try {
     const [returnedProfile, wasCreated] = await Profile.findOrCreate({
       where: {
@@ -17,12 +17,13 @@ const createOrUpdateProfile = async (req, res) => {
     })
     const updatedProfile = await returnedProfile.update({
       ...profile
-    })
+				})
     res.status(200).json({
       isNew: wasCreated,
       profile: updatedProfile
     })
   } catch (err) {
+			console.log('Error creating or updating profile:', err)
     res.status(500).json({
       err
     })
