@@ -7,27 +7,27 @@ module.exports = {
       [
         {
 										user_id: 1,
-										username: 'jimmy',
-          first_name: 'Jimmy',
-          last_name: 'Johnson',
+										username: 'timmy',
+          first_name: 'Timmy',
+          last_name: 'Thompson',
           equipment_offered: ['wetsuit', 'surfboard'],
           created_at: new Date(),
           updated_at: new Date()
         },
         {
 										user_id: 2,
-										username: 'tommy',
-          first_name: 'Tommy',
-          last_name: 'Thomas',
+										username: 'keegan',
+          first_name: 'Keegan',
+          last_name: 'Kompson',
           equipment_offered: ['wetsuit', 'surfboard'],
           created_at: new Date(),
           updated_at: new Date()
         },
         {
 										user_id: 3,
-										username: 'sarah',
-          first_name: 'Sarah',
-          last_name: 'Smith',
+										username: 'todd',
+          first_name: 'Todd',
+          last_name: 'Thompson',
           equipment_offered: ['wetsuit', 'surfboard'],
           created_at: new Date(),
           updated_at: new Date()

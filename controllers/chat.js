@@ -13,13 +13,12 @@ const getUserChats = async (req, res) => {
           { user_two_id: normalizedUserId }
         ]
       },
-      order: [[{ model: ChatMessage, as: 'messages' }, 'created_at', 'desc']],
-      attributes: { exclude: ['user_one_id', 'user_two_id'] },
+      attributes: ['id', 'createdAt', 'updatedAt'],
       include: [
         {
           model: User,
           as: 'user_one',
-          attributes: ['id', 'email', 'account_type'],
+          attributes: ['id'],
           include: [
             {
               model: Profile,
@@ -52,7 +51,7 @@ const getUserChats = async (req, res) => {
         },
         {
           model: ChatMessage,
-          as: 'messages'
+          as: 'last_message'
         }
       ]
 				})

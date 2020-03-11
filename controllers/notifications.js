@@ -1,5 +1,7 @@
 const models = require('../models')
 const { Notification } = models
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 const createNotification = async (req, res) => {
   const { userId, type, content } = req.body
@@ -21,21 +23,25 @@ const createNotification = async (req, res) => {
   }
 }
 
-const updateNotification = async (req, res) => {
-  const { notificationId } = req.params
+const updateNotifications = async (req, res) => {
+  const { notificationIds } = req.body
   try {
-    await Notification.update(
+    const [numberOfItemsUpdated, updatedNotifications] = await Notification.update(
       {
         hasBeenSeen: true
       },
       {
         where: {
-          id: notificationId
-        }
+          id: {
+            [Op.in]: notificationIds
+          }
+								},
+								returning: true,
       }
-    )
+				)
     res.status(200).json({
-      message: 'success'
+      message: 'success',
+      notifications: updatedNotifications
     })
   } catch (err) {
     console.log('Error updating notification:', err)
@@ -50,7 +56,8 @@ const getNotifications = async (req, res) => {
   try {
     const notifications = await Notification.findAll({
       where: {
-        userId
+        userId,
+        hasBeenSeen: false
       }
     })
     res.status(200).json({
@@ -66,6 +73,6 @@ const getNotifications = async (req, res) => {
 
 module.exports = {
   createNotification,
-  updateNotification,
+  updateNotifications,
   getNotifications
 }

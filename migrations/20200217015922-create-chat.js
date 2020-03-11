@@ -7,7 +7,11 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
-      },
+						},
+						lastMessageId: {
+							field: 'last_message_id',
+							type: Sequelize.UUID
+						},
       userOneId: {
         field: 'user_one_id',
         type: Sequelize.INTEGER,

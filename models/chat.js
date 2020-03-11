@@ -6,19 +6,15 @@ module.exports = (sequelize, DataTypes) => {
   const Chat = sequelize.define('Chat', {
     userOneId: {
       field: 'user_one_id',
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id'
-      }
+      type: DataTypes.INTEGER
     },
     userTwoId: {
       field: 'user_two_id',
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id'
-      }
+      type: DataTypes.INTEGER
+    },
+    lastMessageId: {
+      field: 'last_message_id',
+      type: DataTypes.UUID
     },
     createdAt: {
       allowNull: false,
@@ -43,12 +39,16 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'user_two_id',
       onDelete: 'CASCADE'
     })
-    // a chat can consist of many messages
+				Chat.hasOne(models.ChatMessage, {
+					as: 'last_message',
+					foreignKey: '_id',
+					sourceKey: 'lastMessageId'
+			})
     Chat.hasMany(models.ChatMessage, {
       foreignKey: 'chat_id',
       as: 'messages',
       onDelete: 'CASCADE'
-    })
+				})
   }
   return Chat
 }

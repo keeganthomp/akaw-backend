@@ -6,24 +6,24 @@ module.exports = {
       'Users',
       [
         {
-          email: 'jimmy@example.com',
-          username: 'jimmy',
+          email: 'timmy@example.com',
+          username: 'timmy',
           user_verified: true,
           account_type: 'surfer',
           created_at: new Date(),
           updated_at: new Date()
         },
         {
-          username: 'tommy',
-          email: 'tommy@example.com',
+          username: 'keegan',
+          email: 'keegan@example.com',
           user_verified: true,
           account_type: 'surfer',
           created_at: new Date(),
           updated_at: new Date()
         },
         {
-          username: 'sarah',
-          email: 'sarah@example.com',
+          username: 'todd',
+          email: 'todd@example.com',
           user_verified: true,
           account_type: 'surfee',
           created_at: new Date(),

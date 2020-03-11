@@ -1,4 +1,5 @@
 const models = require('../models')
+const { Op } = require('sequelize')
 const { User, Profile } = models
 
 // one lower case letter, one upper case letter, one digit, 8 length, and no spaces
@@ -77,12 +78,15 @@ const verifyUser = async (req, res) => {
 }
 
 const listUsers = async (req, res) => {
-  const { accountType } = req.params
+  const { accountType, userId } = req.params
   try {
     const users = await User.findAll({
       where: {
-								accountType,
-								userVerified: true
+        accountType,
+        userVerified: true,
+        id: {
+          [Op.not]: userId
+        }
       },
       include: [
         {

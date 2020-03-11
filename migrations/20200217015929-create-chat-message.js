@@ -11,12 +11,17 @@ module.exports = {
       },
       chatId: {
         type: Sequelize.INTEGER,
-								allowNull: false,
-								field: 'chat_id',
+        allowNull: false,
+        field: 'chat_id',
         references: {
           model: 'Chats',
           key: 'id'
         }
+      },
+      hasBeenSeen: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        field: 'has_been_seen'
       },
       createdAt: {
         allowNull: false,
